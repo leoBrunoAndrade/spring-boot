@@ -6,7 +6,7 @@ Nosso objetivo com este passo do processo de recrutamento é conhecer melhor as 
 
 Conhecendo você melhor, poderemos selecionar quais desafios já podemos passar para você e quais precisaremos preparar você melhor para enfrentá-los.
 
-## Entrega
+## Requisitos da entrega
 
 Nesta estapa esperamos que você construa o código que contemple as seguintes operações expostas como endpoints REST para:
 
@@ -23,6 +23,9 @@ Considere o cadastro com dados básicos:
 * Cidades: nome e estado
 * Cliente: nome completo, sexo, data de nascimento, idade e cidade onde mora.
 
+## Cenário
+
+No nosso dia-a-dia trabalhamos com o desenvolvimento de microserviços desenvolvidos utilizando Spring Boot. Buscamos automação dos processos de garantia da qualidade, testes, deployment e release.
 
 ## Critérios
 
