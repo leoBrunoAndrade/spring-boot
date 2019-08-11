@@ -5,10 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 @NoRepositoryBean
 public interface DaoGeneric <T extends EntityGeneric> extends JpaRepository <T,Long> {
 
-    T findByName(@Param("name") String name);
+    List<T> findByName(@Param("name") String name);
     boolean existsByName(@Param("name") String name);
 
 

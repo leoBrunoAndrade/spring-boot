@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CustomerService implements CustomerServiceInt <Customer> {
@@ -19,13 +20,14 @@ public class CustomerService implements CustomerServiceInt <Customer> {
     private ValidateCustomer validateCustomer;
 
     @Override
+    @Transactional
     public ResponseEntity<?> save(Customer customer) {
         return new ResponseEntity<>(daoCustomer.save(customer), HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<?> findByName(String name) {
-        return new ResponseEntity<>(daoCustomer.findByNameWithLike(name),HttpStatus.OK);
+        return new ResponseEntity<>(daoCustomer.findByName(name),HttpStatus.OK);
     }
 
 
@@ -36,6 +38,7 @@ public class CustomerService implements CustomerServiceInt <Customer> {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<?> delete(Long id) {
         validateCustomer.verifyExistsEntity(id, daoCustomer, "Customer");
         daoCustomer.deleteById(id);
@@ -43,7 +46,8 @@ public class CustomerService implements CustomerServiceInt <Customer> {
     }
 
     @Override
-    public ResponseEntity<?> updateName(String name, Long id) {
+    @Transactional
+    public ResponseEntity<?> updateName( String name, Long id) {
         validateCustomer.verifyExistsEntity(id, daoCustomer, "Customer");
         return new ResponseEntity<>(daoCustomer.updateByName(name,id),HttpStatus.OK);
     }

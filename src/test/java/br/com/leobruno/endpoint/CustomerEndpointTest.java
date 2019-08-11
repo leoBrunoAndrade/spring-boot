@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class CustomerEndpointTest {
 
@@ -102,7 +102,8 @@ public class CustomerEndpointTest {
         ResponseEntity<Customer> customerResponseEntity = new ResponseEntity<>(customer,HttpStatus.OK);
 
         mvc.perform(patch("/v1/customers/{id}","1")
-                .param("name","Cliente 2"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("Cliente"))
                 .andExpect(status().isOk())
                 .andDo(print());
     }

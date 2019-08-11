@@ -14,10 +14,9 @@ import java.util.List;
 public interface DaoCustomer extends DaoGeneric<Customer>{
 
     @Modifying
-    @Transactional
     @Query("update Customer cus set cus.name = :name where cus.id = :id")
     int updateByName(@Param("name") String name, @Param("id") Long id);
 
-    @Query("select c from Customer c where name like %:name%")
+    @Query("select cus from Customer cus where name like %:name%")
     List<Customer> findByNameWithLike(@Param("name") String name);
 }

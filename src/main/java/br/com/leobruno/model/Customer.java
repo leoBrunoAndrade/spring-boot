@@ -15,7 +15,7 @@ public class Customer extends EntityGeneric {
     @NotNull
     private Sex sex;
 
-    @ManyToOne (cascade = CascadeType.DETACH)
+    @ManyToOne (cascade = {CascadeType.DETACH},fetch = FetchType.LAZY)
     @JoinColumn(name = "id_city")
     private City city;
 
@@ -30,10 +30,15 @@ public class Customer extends EntityGeneric {
     private int age;
 
     public Customer(Sex sex, City city, Date born_date, int age){
+        this();
         this.sex = sex;
         this.city = city;
         this.born_date = born_date;
         this.age = age;
+    }
+
+    public Customer (){
+
     }
 
 

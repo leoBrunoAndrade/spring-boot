@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CityService implements CityServiceInt<City> {
@@ -19,6 +20,7 @@ public class CityService implements CityServiceInt<City> {
     private ValidateCity validateCity;
 
     @Override
+    @Transactional
     public ResponseEntity<?> save(City city) {
         validateCity.verifyConflictEntityExample(city,daoCity,"City");
         return new ResponseEntity<>(daoCity.save(city), HttpStatus.CREATED);

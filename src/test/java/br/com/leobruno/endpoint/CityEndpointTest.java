@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class CityEndpointTest {
 
@@ -41,10 +41,6 @@ public class CityEndpointTest {
         City city = new City();
         city.name = "Recife";
         city.state = "PE";
-      //  objectMapper.writeValueAsString(city)
-
-        // "{\"name\":\"Recife\",\"state\":\"PE\"}"
-
         ResponseEntity<City> cityResponseEntity = new ResponseEntity<>(city, HttpStatus.CREATED);
         Mockito.doReturn(cityResponseEntity).when(cityService).save(Mockito.any());
 
@@ -91,7 +87,5 @@ public class CityEndpointTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-
-
 
 }

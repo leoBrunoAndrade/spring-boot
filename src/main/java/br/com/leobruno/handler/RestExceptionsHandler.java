@@ -7,6 +7,7 @@ import br.com.leobruno.erros.ObjectError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -34,14 +35,24 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetail,status);
     }
 
-    /*private ErrorDetail getErrorDetail (MethodArgumentNotValidException ex, HttpStatus status, List<ObjectError> errors){
-        return new ErrorDetail("Campos Invalid", status.value(),status.getReasonPhrase(),
-                ex.getBindingResult().getObjectName(),errors);
-    }*/
-
     private List<ObjectError> getErrors (MethodArgumentNotValidException ex){
         return ex.getBindingResult().getFieldErrors().stream().map(fieldError ->
                 new ObjectError(fieldError.getDefaultMessage(),fieldError.getField())).collect(Collectors.toList());
+    }
+
+
+    @Override
+    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
+                                                                         HttpHeaders headers,
+                                                                         HttpStatus status,
+                                                                         WebRequest request) {
+
+        ErrorDetail errorDetail = new ErrorDetail.BuilderErrorDetail(status.value()).
+                message(ex.getMessage())
+                .object(ex.getMethod())
+                .status(status.getReasonPhrase())
+                .build();
+        return new ResponseEntity<>(errorDetail,status);
     }
 
     @ExceptionHandler(EntityNotFoundExceptionApi.class)
@@ -63,16 +74,4 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(errorDetail,HttpStatus.CONFLICT);
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
