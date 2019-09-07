@@ -31,7 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CustomerEndpointTest {
 
     @MockBean
-    private CustomerService customerService;
+    CustomerService customerService;
+
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -45,8 +46,7 @@ public class CustomerEndpointTest {
         Customer customer = new Customer(Sex.M,new City(),new Date(),27);
         customer.name = "Cliente 1";
 
-        ResponseEntity<Customer> customerResponseEntity = new ResponseEntity<>(customer, HttpStatus.CREATED);
-        Mockito.doReturn(customerResponseEntity).when(customerService).save(Mockito.any());
+        Mockito.doReturn(customer).when(customerService).save(Mockito.any());
 
         mvc.perform(post("/v1/customers")
                 .content(objectMapper.writeValueAsString(customer))
@@ -58,9 +58,7 @@ public class CustomerEndpointTest {
     @Test
     public void tryEndpointSaveCustomerWithInvalidFieldShouldReturn400() throws Exception {
         Customer customer = new Customer(Sex.M,new City(),new Date(),27);
-
-        ResponseEntity<Customer> customerResponseEntity = new ResponseEntity<>(customer, HttpStatus.BAD_REQUEST);
-        Mockito.doReturn(customerResponseEntity).when(customerService).save(Mockito.any());
+        Mockito.doReturn(customer).when(customerService).save(Mockito.any());
 
         mvc.perform(post("/v1/customers")
                 .content(objectMapper.writeValueAsString(customer))
@@ -74,8 +72,7 @@ public class CustomerEndpointTest {
         Customer customer = new Customer(Sex.M,new City(),new Date(),27);
         customer.name = "Cliente 1";
 
-        ResponseEntity<Customer> customerResponseEntity = new ResponseEntity<>(customer, HttpStatus.OK);
-        Mockito.doReturn(customerResponseEntity).when(customerService).save(Mockito.any());
+        Mockito.doReturn(customer).when(customerService).save(Mockito.any());
 
         mvc.perform(get("/v1/customers/{id}","1"))
                 .andDo(print())
@@ -85,7 +82,7 @@ public class CustomerEndpointTest {
     @Test
     public void tryEndpointDeleteCustomerSucessShouldReturn200() throws Exception {
         ResponseEntity<Customer> customerResponseEntity = new ResponseEntity<>( HttpStatus.OK);
-        Mockito.doReturn(customerResponseEntity).when(customerService).delete(Mockito.anyLong());
+        Mockito.doNothing().when(customerService).delete(Mockito.anyLong());
 
         mvc.perform(delete("/v1/customers/{id}","1")
                 .contentType(MediaType.APPLICATION_JSON))

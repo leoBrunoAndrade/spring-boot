@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CustomerService implements CustomerServiceInt <Customer> {
 
@@ -21,35 +24,35 @@ public class CustomerService implements CustomerServiceInt <Customer> {
 
     @Override
     @Transactional
-    public ResponseEntity<?> save(Customer customer) {
-        return new ResponseEntity<>(daoCustomer.save(customer), HttpStatus.CREATED);
+    public Customer save(Customer customer) {
+        return daoCustomer.save(customer);
     }
 
     @Override
-    public ResponseEntity<?> findByName(String name) {
-        return new ResponseEntity<>(daoCustomer.findByName(name),HttpStatus.OK);
+    public List<Customer> findByName(String name) {
+        return daoCustomer.findByName(name);
     }
 
 
     @Override
-    public ResponseEntity<?> findById(Long id) {
+    public Customer findById(Long id) {
         validateCustomer.verifyExistsEntity(id,daoCustomer,"Customer");
-        return new ResponseEntity<>(daoCustomer.findById(id),HttpStatus.OK);
+        return daoCustomer.findById(id).get();
     }
 
     @Override
     @Transactional
-    public ResponseEntity<?> delete(Long id) {
+    public void delete(Long id) {
         validateCustomer.verifyExistsEntity(id, daoCustomer, "Customer");
         daoCustomer.deleteById(id);
-        return new ResponseEntity(HttpStatus.OK);
+
     }
 
     @Override
     @Transactional
-    public ResponseEntity<?> updateName( String name, Long id) {
+    public Object updateName( String name, Long id) {
         validateCustomer.verifyExistsEntity(id, daoCustomer, "Customer");
-        return new ResponseEntity<>(daoCustomer.updateByName(name,id),HttpStatus.OK);
+        return  daoCustomer.updateByName(name,id);
     }
 
 }

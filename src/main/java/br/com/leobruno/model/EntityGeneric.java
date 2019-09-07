@@ -13,4 +13,5 @@ public abstract class EntityGeneric implements Serializable {
     @NotNull
     public String name;
 
+
 }

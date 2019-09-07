@@ -19,4 +19,5 @@ public interface DaoCustomer extends DaoGeneric<Customer>{
 
     @Query("select cus from Customer cus where name like %:name%")
     List<Customer> findByNameWithLike(@Param("name") String name);
+
 }

@@ -3,6 +3,8 @@ package br.com.leobruno.endpoint;
 import br.com.leobruno.model.City;
 import br.com.leobruno.service.CityService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -15,6 +17,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -35,14 +42,26 @@ public class CityEndpointTest {
     @Autowired
     private MockMvc mvc;
 
+    private  static List<City> cities;
+
+    @BeforeClass
+    public static void generateListCity (){
+        City city = new City();
+        city.state = "PE";
+        city.name = "Recife";
+        city.id = 1L;
+        cities = new ArrayList<>();
+        cities.add(city);
+    }
+
 
     @Test
     public void trySaveCitySucessShouldReturnStatus201() throws Exception {
         City city = new City();
         city.name = "Recife";
         city.state = "PE";
-        ResponseEntity<City> cityResponseEntity = new ResponseEntity<>(city, HttpStatus.CREATED);
-        Mockito.doReturn(cityResponseEntity).when(cityService).save(Mockito.any());
+
+        Mockito.doReturn(city).when(cityService).save(Mockito.any());
 
         mvc.perform(post("/v1/cities").content(objectMapper.writeValueAsString(city))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -55,8 +74,7 @@ public class CityEndpointTest {
         City city = new City();
         city.state = "PE";
 
-        ResponseEntity<City> cityResponseEntity = new ResponseEntity<>(city, HttpStatus.BAD_REQUEST);
-        Mockito.doReturn(cityResponseEntity).when(cityService).save(Mockito.any());
+        Mockito.doReturn(city).when(cityService).save(Mockito.any());
 
         mvc.perform(post("/v1/cities").content(objectMapper.writeValueAsString(city))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -67,8 +85,7 @@ public class CityEndpointTest {
     @Test
     public void tryFindByNameCitySucess200() throws Exception {
 
-        ResponseEntity<City> cityResponseEntity = new ResponseEntity<>(new City(), HttpStatus.OK);
-        Mockito.doReturn(cityResponseEntity).when(cityService).findByName(Mockito.any());
+        Mockito.doReturn(cities).when(cityService).findByName(Mockito.any());
 
         mvc.perform(get("/v1/cities/name/{name}","Recife")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -79,8 +96,8 @@ public class CityEndpointTest {
     @Test
     public void tryFindByStateCitySucess200() throws Exception {
 
-        ResponseEntity<City> cityResponseEntity = new ResponseEntity<>(new City(), HttpStatus.OK);
-        Mockito.doReturn(cityResponseEntity).when(cityService).findByName(Mockito.any());
+
+        Mockito.doReturn(cities).when(cityService).findByName(Mockito.any());
 
         mvc.perform(get("/v1/cities/name/{state}","PE")
                 .contentType(MediaType.APPLICATION_JSON))

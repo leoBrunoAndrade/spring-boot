@@ -3,14 +3,16 @@ package br.com.leobruno.serviceinterface;
 import br.com.leobruno.model.EntityGeneric;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 
-public interface GenericServiceInt <T extends EntityGeneric> {
 
-    ResponseEntity<?> save (T t);
+public interface GenericServiceInt <T> {
 
-    ResponseEntity<?> findById(Long id);
+    T save (T t);
 
-    ResponseEntity<?> delete (Long id);
+    T findById(Long id);
 
-    ResponseEntity<?> findByName(String name);
+    void delete (Long id);
+
+    List<T> findByName(String name);
 }

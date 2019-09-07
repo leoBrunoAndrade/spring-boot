@@ -4,6 +4,8 @@ import br.com.leobruno.model.EntityGeneric;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
-public interface CityServiceInt <T extends EntityGeneric> extends GenericServiceInt<T> {
-    ResponseEntity<?> findByState(@PathVariable("state") String state);
+import java.util.List;
+
+public interface CityServiceInt <T> extends GenericServiceInt<T> {
+    List<T> findByState(@PathVariable("state") String state);
 }

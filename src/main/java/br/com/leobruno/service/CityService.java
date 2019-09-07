@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CityService implements CityServiceInt<City> {
 
@@ -21,32 +24,35 @@ public class CityService implements CityServiceInt<City> {
 
     @Override
     @Transactional
-    public ResponseEntity<?> save(City city) {
+    public City save(City city) {
         validateCity.verifyConflictEntityExample(city,daoCity,"City");
-        return new ResponseEntity<>(daoCity.save(city), HttpStatus.CREATED);
+        return daoCity.save(city);
     }
 
     @Override
-    public ResponseEntity<?> findByName(String name) {
+    public List<City> findByName(String name) {
         validateCity.verifyExistsEntityByName(name,daoCity,"City");
-        return new ResponseEntity<>(daoCity.findByName(name),HttpStatus.OK);
+        return daoCity.findByName(name);
     }
 
     @Override
-    public ResponseEntity<?> findByState(String state) {
+    public List<City> findByState(String state) {
         validateCity.verifyExistsEntityByState(state,daoCity,"City");
-        return new ResponseEntity<>(daoCity.findByState(state),HttpStatus.OK);
+        List<City> listCities = daoCity.findByState(state);
+        return listCities;
     }
 
+
     @Override
-    public ResponseEntity<?> findById(Long id) {
+    public City findById(Long id) {
         return null;
     }
 
     @Override
-    public ResponseEntity<?> delete(Long id) {
-        return null;
+    public void delete(Long id) {
+
     }
+
 
 
 }
