@@ -1,6 +1,7 @@
 package br.com.leobruno.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -10,7 +11,7 @@ public abstract class EntityGeneric implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
     @Column
-    @NotNull
+    @NotBlank
     public String name;
 
 

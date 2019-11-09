@@ -1,14 +1,25 @@
 package br.com.leobruno.model;
 
-import br.com.leobruno.util.Sex;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Data
+@NoArgsConstructor
 public class Customer extends EntityGeneric {
     @Column
     @Enumerated(EnumType.STRING)
@@ -27,7 +38,7 @@ public class Customer extends EntityGeneric {
 
     @Column
     @NotNull
-    private int age;
+    private Integer age;
 
     public Customer(Sex sex, City city, Date born_date, int age){
         this();
@@ -37,40 +48,5 @@ public class Customer extends EntityGeneric {
         this.age = age;
     }
 
-    public Customer (){
 
-    }
-
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public Date getBorn_date() {
-        return born_date;
-    }
-
-    public void setBorn_date(Date born_date) {
-        this.born_date = born_date;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 }

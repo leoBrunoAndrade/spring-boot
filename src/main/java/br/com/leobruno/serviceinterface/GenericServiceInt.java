@@ -1,8 +1,5 @@
 package br.com.leobruno.serviceinterface;
 
-import br.com.leobruno.model.EntityGeneric;
-import org.springframework.http.ResponseEntity;
-
 import java.util.List;
 
 
