@@ -20,6 +20,7 @@ import br.com.leobruno.erros.EntityConflictException;
 import br.com.leobruno.erros.EntityNotFoundExceptionApi;
 import br.com.leobruno.erros.ErrorDetail;
 import br.com.leobruno.erros.ObjectError;
+import br.com.leobruno.validate.InvalidEnumException;
 
 @RestControllerAdvice
 public class RestExceptionsHandler extends ResponseEntityExceptionHandler {

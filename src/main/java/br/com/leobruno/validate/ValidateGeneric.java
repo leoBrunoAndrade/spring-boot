@@ -1,15 +1,13 @@
 package br.com.leobruno.validate;
 
+import org.apache.commons.lang3.EnumUtils;
+import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Component;
+
 import br.com.leobruno.dao.DaoGeneric;
 import br.com.leobruno.erros.EntityConflictException;
 import br.com.leobruno.erros.EntityNotFoundExceptionApi;
-import br.com.leobruno.handler.InvalidEnumException;
 import br.com.leobruno.model.EntityGeneric;
-
-import org.apache.commons.lang3.EnumUtils;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Component;
 
 @Component
 public class ValidateGeneric {

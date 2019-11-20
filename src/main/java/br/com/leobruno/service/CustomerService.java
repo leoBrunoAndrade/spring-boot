@@ -1,18 +1,20 @@
 package br.com.leobruno.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.leobruno.dao.DaoCustomer;
-import br.com.leobruno.dto.CustomerDtoGet;
 import br.com.leobruno.model.Customer;
+import br.com.leobruno.model.dto.CustomerDtoGet;
 import br.com.leobruno.serviceinterface.CustomerServiceInt;
 import br.com.leobruno.validate.ValidateCustomer;
 
@@ -58,16 +60,26 @@ public class CustomerService implements CustomerServiceInt <Customer> {
         return  daoCustomer.updateByName(name,id);
     }
 
-	public Page<Customer> findByCustomerPaginable(CustomerDtoGet customerDtoGet, int page, int qtd) {
-		Customer customer = customerDtoGet.convertToCustomer();
-		
+	public Page<Customer> findByCustomerPaginable(String name, int page, int qtd, String direction, String fieldDirection) {
+		if(direction!=null) {
+			direction = direction.toUpperCase();
+		}
 		validateCustomer.validEnum(Direction.class, 
-				customerDtoGet.getDirection());
+				direction.toUpperCase());
 		
+		Customer customer = new Customer();
+		customer.name = name;
 		Example<Customer> ex =  daoCustomer.convertClassToExample(customer);
-		return daoCustomer.findAll(ex, PageRequest.of(page, qtd,
-				Direction.valueOf(customerDtoGet.getDirection()),
-				customerDtoGet.getFieldDirection()));
+		
+		PageRequest pr = PageRequest.of(page, qtd,
+				Direction.valueOf(direction), fieldDirection);
+		
+		return daoCustomer.findAll(ex,pr);
+	}
+	
+	public Page<Customer> findByCustomerPaginable(Pageable pageable) {
+		
+		return daoCustomer.findAll(pageable);
 	}
 
 }
