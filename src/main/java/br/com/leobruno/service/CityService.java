@@ -16,11 +16,15 @@ import java.util.Optional;
 @Service
 public class CityService implements CityServiceInt<City> {
 
-    @Autowired
     private DaoCity daoCity;
 
-    @Autowired
     private ValidateCity validateCity;
+    
+    @Autowired
+    public CityService(DaoCity daoCity, ValidateCity validateCity) {
+		this.daoCity = daoCity;
+		this.validateCity = validateCity;
+	}
 
     @Override
     @Transactional
