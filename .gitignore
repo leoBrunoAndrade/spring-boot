@@ -1,1 +1,9 @@
 /target/
+.classpath
+.factorypath
+.classpath
+.project
+.settings/org.eclipse.jdt.apt.core.prefs
+.settings/org.eclipse.jdt.core.prefs
+.sts4-cache/classpath-data.json
+.vscode/settings.json

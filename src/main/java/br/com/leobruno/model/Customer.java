@@ -15,12 +15,17 @@ import javax.validation.constraints.PastOrPresent;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class Customer extends EntityGeneric {
+
+    private static final long serialVersionUID = 8035579221523638633L;
+
     @Column
     @Enumerated(EnumType.STRING)
     @NotNull

@@ -1,7 +1,6 @@
 package br.com.leobruno.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.leobruno.dao.DaoCustomer;
 import br.com.leobruno.model.Customer;
-import br.com.leobruno.model.dto.CustomerDtoGet;
 import br.com.leobruno.serviceinterface.CustomerServiceInt;
 import br.com.leobruno.validate.ValidateCustomer;
 

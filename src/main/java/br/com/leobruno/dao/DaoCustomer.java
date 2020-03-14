@@ -1,14 +1,14 @@
 package br.com.leobruno.dao;
 
 
-import br.com.leobruno.model.Customer;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import br.com.leobruno.model.Customer;
 
 @Repository
 public interface DaoCustomer extends DaoGeneric<Customer>{

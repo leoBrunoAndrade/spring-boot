@@ -1,10 +1,8 @@
 package br.com.leobruno.serviceinterface;
 
-import br.com.leobruno.model.EntityGeneric;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
+
+import org.springframework.web.bind.annotation.PathVariable;
 
 public interface CityServiceInt <T> extends GenericServiceInt<T> {
     List<T> findByState(@PathVariable("state") String state);

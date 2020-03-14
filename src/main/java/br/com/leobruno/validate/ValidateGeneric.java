@@ -13,25 +13,25 @@ import br.com.leobruno.model.EntityGeneric;
 public class ValidateGeneric {
 
     //Remove | update | FindById
-    public void verifyExistsEntity(Long id, DaoGeneric daoGeneric,String nameEntity){
+    public void verifyExistsEntity(final Long id, final DaoGeneric<?> daoGeneric,final String nameEntity){
         if(!daoGeneric.existsById(id))
             throw new EntityNotFoundExceptionApi(nameEntity +" not found by id: " + id);
     }
 
-    public void verifyExistsEntityByName(String name, DaoGeneric daoGeneric,String nameEntity){
+    public void verifyExistsEntityByName(final String name, final DaoGeneric<?> daoGeneric,final String nameEntity){
         if(!daoGeneric.existsByName(name))
             throw new EntityNotFoundExceptionApi(nameEntity +" not found by name : " + name);
     }
 
     // update |Save
-    public void verifyConflictEntityExample(EntityGeneric entityGeneric, DaoGeneric daoGeneric,String nameEntity){
-        Example example = Example.of(entityGeneric);
+    public void verifyConflictEntityExample(final EntityGeneric entityGeneric, final DaoGeneric<?> daoGeneric,final String nameEntity){
+        final Example example = Example.of(entityGeneric);
         if(!daoGeneric.findAll(example).isEmpty())
             throw new EntityConflictException(nameEntity + " Entity conflict by name " + entityGeneric.name);
     }
     
     
-    public  <E extends Enum<E>> void validEnum(final Class<E> enumClass, String name) {
+    public  <E extends Enum<E>> void validEnum(final Class<E> enumClass, final String name) {
     	if(!EnumUtils.isValidEnum(enumClass, name) ) {
 			throw new InvalidEnumException("Invalid Direction value");
 		}

@@ -1,17 +1,15 @@
 package br.com.leobruno.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.leobruno.dao.DaoCity;
 import br.com.leobruno.model.City;
 import br.com.leobruno.serviceinterface.CityServiceInt;
 import br.com.leobruno.validate.ValidateCity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CityService implements CityServiceInt<City> {

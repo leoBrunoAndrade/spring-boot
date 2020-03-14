@@ -9,8 +9,9 @@ import javax.validation.constraints.NotBlank;
 @Entity
 public class City extends EntityGeneric {
 
-
-	 @Column
+     private static final long serialVersionUID = -2509509471450636146L;
+     
+     @Column
      @NotBlank
      public String state;
 
